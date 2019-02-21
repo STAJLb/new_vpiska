@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:alwaysDrawnWithCache="false"
+    android:animateLayoutChanges="false"
+    android:animationCache="false"
+    android:background="@drawable/main_background"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background">
+
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/bad_script"
+                android:text="Событие"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+
+
+                android:textStyle="bold"
+                android:typeface="serif" />
+        </android.support.v7.widget.Toolbar>
+
+        <TabHost
+            android:id="@android:id/tabhost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></TabWidget>
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/tab1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/test"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_above="@id/adView"
+                            android:layout_below="@+id/toolbar"
+                            android:orientation="vertical">
+
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:alwaysDrawnWithCache="false"
+                                    android:animateLayoutChanges="false"
+                                    android:animationCache="false"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginTop="25dp"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="15dp"
+                                        tools:ignore="TooDeepLayout">
+
+                                        <TextView
+                                            android:id="@+id/textView4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="Создатель:"
+                                            android:textColor="@color/color_text_var1"
+                                            android:textSize="24sp" />
+
+                                        <TextView
+                                            android:id="@+id/created_party_nik_name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="4"
+                                            android:clickable="true"
+                                            android:textColor="@color/color_text_var1"
+                                            android:textSize="24sp"
+                                            android:focusable="true" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="4dp"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="15dp"
+                                        tools:ignore="RtlHardcoded">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="Рейтинг создателя:"
+                                            android:textColor="@color/color_text_var1"
+                                            android:textSize="18sp" />
+
+                                        <TextView
+                                            android:id="@+id/rating"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="6"
+                                            android:textColor="@color/color_text_var1"
+                                            android:textSize="16sp" />
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@color/white" />
+
+
+                                    <TextView
+                                        android:id="@+id/textView7"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_weight="1"
+                                        android:text="Название:"
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/title_party"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="6"
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="16sp" />
+
+
+                                    <TextView
+                                        android:id="@+id/textView5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:text="Описание:"
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/description_party"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="16sp" />
+
+                                    <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="Дата и время:"
+                                    android:textColor="@color/color_text_var1"
+                                    android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/date_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="16sp" />
+                                    <TextView
+                                        android:id="@+id/textView10"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:text="Источник:"
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/source"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:autoLink="none|web"
+                                        android:textColor="@color/color_text_var1"
+                                        android:textColorLink="@color/colorWhite"
+                                        android:textSize="16sp" />
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:layout_marginBottom="15dp"
+                                        android:layout_marginTop="15dp"
+                                        android:background="@color/white" />
+
+                                    <Button
+                                        android:id="@+id/accept_party"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerInParent="true"
+                                        android:layout_centerVertical="true"
+                                        android:background="@drawable/button"
+                                        android:drawablePadding="10dp"
+                                        android:gravity="center_vertical|center"
+                                        android:text="Присоединиться"
+                                        android:textColor="#F77062"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:layout_marginBottom="15dp"
+                                        android:layout_marginTop="15dp"
+                                        android:background="@color/white" />
+
+                                    <TextView
+                                        android:id="@+id/address_party"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text=""
+                                        android:textColor="@color/color_text_var1"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+                            </ScrollView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/main_background"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/white" />
+
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:text="Список участников:"
+                            android:textColor="@color/color_text_var1"
+                            android:textSize="18sp" />
+
+                        <ListView
+                            android:id="@+id/listView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="15dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/main_background"
+                        android:orientation="vertical">
+
+                        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/activity_main"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="15dp">
+
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/fab"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentEnd="true"
+                                android:clickable="true"
+                                android:tint="@android:color/white"
+                                android:src="@drawable/ic_send"
+                                app:fabSize="mini"
+                                android:focusable="true" />
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_toLeftOf="@id/fab"
+                                tools:ignore="RtlHardcoded">
+
+                                <EditText
+                                    android:id="@+id/input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Введите сообщение"
+                                    android:textColor="@color/colorWhite"
+                                    android:textColorHighlight="@color/colorWhite"
+                                    android:textColorHint="@color/colorWhite"/>
+                            </android.support.design.widget.TextInputLayout>
+
+                            <ListView
+                                android:id="@+id/list_of_messages"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_above="@id/fab"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:divider="@android:color/transparent"
+                                android:dividerHeight="16dp"
+                                android:paddingBottom="16dp"
+                                android:stackFromBottom="true"
+                                android:transcriptMode="alwaysScroll" />
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

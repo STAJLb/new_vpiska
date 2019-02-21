@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/bad_script"
+            android:text="@string/toolbar_create_report"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+
+
+            android:textStyle="bold"
+            android:typeface="serif" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dip"
+                android:entries="@array/reasons_report" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_description_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/inputText">
+
+                <EditText
+                    android:id="@+id/description_report"
+                    style="@style/StyledTilEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description_report"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHighlight="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnAddReport"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dip"
+                android:background="@drawable/button"
+
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:text="@string/create_report"
+                android:textAllCaps="true"
+                android:textColor="#F77062"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Link to Login Screen -->
+
+        </LinearLayout>
+
+
+    </ScrollView>
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+</RelativeLayout>

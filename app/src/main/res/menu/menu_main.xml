@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item android:id="@+id/action_shop"
+        android:title="@string/string_shop"
+        android:orderInCategory="1"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_about"
+        android:title="@string/action_about"
+        android:orderInCategory="2"
+        app:showAsAction="never" />
+    <item android:id="@+id/feeadback"
+        android:title="Оставить отзыв"
+        android:orderInCategory="2"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_disabled_ads"
+        android:title="@string/action_disabled_ads"
+        android:orderInCategory="3"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_exit"
+        android:title="@string/action_exit"
+        android:orderInCategory="4"
+        app:showAsAction="never" />
+
+
+
+</menu>

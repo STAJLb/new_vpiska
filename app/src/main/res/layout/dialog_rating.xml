@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearlayout"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="2dip">
+
+    <android.support.design.widget.TextInputLayout
+
+        android:id="@+id/input_layout_nik_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/rating"
+
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:hint="Рейтинг"
+            android:inputType="number|numberSigned"
+            android:maxLength="3"
+            android:textColor="@color/colorBlack"
+            android:textColorHighlight="@color/colorBlack"
+            android:textColorHint="@color/colorBlack" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

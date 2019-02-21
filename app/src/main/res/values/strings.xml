@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Квартирник</string>
+    <string name="hint_nik_name">Никнейм</string>// Реклама
+    <string name="hint_password">Пароль</string>
+    <string name="hint_name">Имя</string>
+    <string name="btn_login">Войти</string>//Добавление вписки<string name="btn_register">Зарегистрироваться</string>
+
+    <string name="btn_link_to_register">Зарегистрироваться</string>
+    <string name="btn_link_to_login">Уже зарегистрированы? Войти.</string>// Реклама
+    <string name="welcome">Привет,</string>
+    <string name="btn_logout">Выйти</string>
+    <string name="name">Полное имя</string>
+    <string name="check_man">Парень</string>//Добавление вписки<string name="check_woman">Девушка</string>
+    //Реклама
+    <string name="okContract">Согласен(-на) с <a href="http://clickcoffee.ru/api/agreement">пользовательским соглашением</a></string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_app">О приложении</string>
+
+
+    <string name="btn_profile">Настройки профиля</string>
+    <string name="textId">ID:</string>
+    <string name="btn_map">Перейти на карту</string>
+    <string name="btn_rating">Таблица рейтинга</string>
+
+    <string name="title_home">Home</string>
+    <string name="rating">Рейтинг</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="upload_image">UPLOAD IMAGE</string>
+    <string name="read_file">This app needs access to your file storage so that it can read photos.</string>
+    <string name="change_avatar">СМЕНИТЬ АВАТАР</string>
+
+    <string name="placeholder_error">Ошибка загрузки аватарки</string>
+    <string name="placeholder_user">Аватарка</string>
+    <string name="action_exit">Выйти</string>
+    <string name="good">Хорошо</string>
+    <string name="title_perf_for_reg">Запрос прав приложением</string>
+    <string name="message_perm_for_reg">В следующем действии приложением будет запрошено разрешение на считывание данных телефона.
+       \n\nЭто необходимо для идентификации пользователей, а так же ускорения работы службы технической поддержки в случае утери данных пользователями.</string>
+    <string name="choose_date">Выберите дату вашего рождения</string>
+    <string name="ready">Готово</string>
+    <string name="cancel">Отмена</string>
+
+
+    //   Реклама
+    <string name="banner_ad_unit_id">ca-app-pub-6595506155906957/5953597740</string>
+    <string name="banner_ad_unit_id_1">ca-app-pub-6595506155906957/1454283179</string>
+    //Добавление вписки
+    <string name="title_party">Название</string>
+    <string name="description_party">Описание</string>
+    <string name="count_people_on_party">Количесво людей</string>
+    <string name="create_party">Создать событие</string>
+    <string name="address_party">Адрес</string>
+    //Диалог для карты
+    <string name="message_info_play_market">Добро пожаловать в приложение "Квартирник"! Мы только начинаем развиваться и нам очень важно мнение каждого, попробуйте ознакомиться с функционалом, а затем
+   можете оставить отзыв, перейдя по соответствующей ссылке в контекстном меню. Ваше мнение будет обязательно учтено!
+    </string>
+    <string name="title_perf_for_play_market">Обратная связь</string>
+    <string name="feedback">Отзыв</string>
+    <string name="btn_feedback">Отправить отзыв</string>
+    <string name="toolbar_create_feedback">Обратная связь</string>
+    //Диалог для карты
+    <string name="title_perf_for_maps">Подсказка</string>
+
+    <string name="message_info_about_maps">Чтобы переместить метку, удерживайте ее и перетащите в нужное место.</string>
+    <string name="date_and_time">Дата и время</string>
+    <string name="count_people">Кол-во людей</string>
+    //Диаолог GPS
+    <string name="title_perf_for_gps">Подсказка</string>
+    <string name="message_info_about_gps">Чтобы переместить метку на ваше местополежние, включите GPS.</string>
+    <string name="toolbar_create_party">Создание события</string>
+    <string name="select_date">Указать дату</string>
+    <string name="select_time">Указать время</string>
+    <string name="alcohol">Алкоголь</string>
+    <string name="date">Дата:</string>
+    <string name="time">Время:</string>
+    <string name="number_version">Номер версии:</string>
+    <string name="toolbar_agreement">Пользовательское соглашение</string>
+    <string name="toolbar_profile">Профиль</string>
+    <string name="update">Обновить</string>
+    <string name="create_report">Отправить репорт</string>
+    <string name="description_report">Описание репорта</string>
+    <string name="action_report">Создать репорт</string>
+    <string name="toolbar_create_report">Создание репорта</string>
+    <string name="action_about">О нас</string>
+    <string name="action_disabled_ads">Отключить рекламу</string>
+
+
+    <string name="title_info">Информация</string>
+
+    <string name="action_sort">Сортировать</string>
+    <string name="string_shop">Магазин</string>
+
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+
+    <string-array name="reasons_report">
+        <item>Некорректные данные квартирника</item>
+        <item>Ложные координаты</item>
+        <item>Некорректные данные создателя</item>
+        <item>Другое</item>
+    </string-array>
+
+    <string-array name="types_parties">
+        <item>Прогулка</item>
+        <item>Домашняя посиделка</item>
+        <item>Выставка</item>
+        <item>Концерт</item>
+        <item>Игры</item>
+        <item>Кино</item>
+    </string-array>
+
+</resources>
