@@ -105,6 +105,7 @@
         -->
 
         <activity android:name=".party.AddReportActivity" />
+        <activity android:name=".profile.GuestProfileActivity" />
 
         <service
             android:name=".services.CheckVersion"

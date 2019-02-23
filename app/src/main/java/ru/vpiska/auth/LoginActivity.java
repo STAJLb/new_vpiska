@@ -1,6 +1,7 @@
 package ru.vpiska.auth;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -22,8 +23,13 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import ru.vpiska.MainScreenActivity;
 import ru.vpiska.R;
@@ -66,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnLinkToRegister = findViewById(R.id.btnLinkToRegisterScreen);
+        Button btnGuest = findViewById(R.id.btnGuest);
 
         // Progress dialog
         pDialog = new ProgressDialog(this,R.style.AppCompatAlertDialogStyle);
@@ -123,6 +130,53 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String deviceUniqueIdentifier = id(LoginActivity.this);
+                if(deviceUniqueIdentifier == null){
+                    Toast.makeText(getBaseContext(), "Гостевой вход невозможен",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    startGuestSession(deviceUniqueIdentifier);
+                }
+
+            }
+        });
+
+    }
+
+
+    private static String sID = null;
+    private static final String INSTALLATION = "INSTALLATION";
+
+    private synchronized static String id(Context context) {
+        if (sID == null) {
+            File installation = new File(context.getFilesDir(), INSTALLATION);
+            try {
+                if (!installation.exists())
+                    writeInstallationFile(installation);
+                sID = readInstallationFile(installation);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return sID;
+    }
+
+    private static String readInstallationFile(File installation) throws IOException {
+        RandomAccessFile f = new RandomAccessFile(installation, "r");
+        byte[] bytes = new byte[(int) f.length()];
+        f.readFully(bytes);
+        f.close();
+        return new String(bytes);
+    }
+
+    private static void writeInstallationFile(File installation) throws IOException {
+        FileOutputStream out = new FileOutputStream(installation);
+        String id = UUID.randomUUID().toString();
+        out.write(id.getBytes());
+        out.close();
     }
 
     @Override
@@ -133,6 +187,88 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Нажми еще раз для выхода!",
                     Toast.LENGTH_SHORT).show();
         back_pressed = System.currentTimeMillis();
+    }
+
+    private void startGuestSession(final String deviceUniqueIdentifier){
+        // Tag used to cancel the request
+        HttpsTrustManager.allowAllSSL();
+        String tag_string_req = "req_login";
+
+        pDialog.setMessage("Готовим гостевой аккаунт  ...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Method.POST, AppConfig.URL_LOGIN_GUEST, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Ошибка авторизации: " + response);
+
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // Check for error node in json
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+                        session.setLogin(true);
+                        JSONObject dataTokens = jObj.getJSONObject("data_tokens");
+                        // Now store the user in SQLite
+                        String accessToken = dataTokens.getString("access_token");
+                        String refreshToken = dataTokens.getString("refresh_token");
+                        String expAccessToken = dataTokens.getString("exp_access_token");
+                        String expRefreshToken = dataTokens.getString("exp_refresh_token");
+                        db.deleteDataTokensTable();
+                        // Inserting row in users table
+
+                        db.addDataTokens(accessToken,expAccessToken,refreshToken,expRefreshToken);
+
+
+
+                        // Launch main activity
+                        Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),"Ошибка: " +
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                    hideDialog();
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Ошибка: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),"Ошибка: " +
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("imei", deviceUniqueIdentifier);
+
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq);
     }
 
     private void checkLogin(final String nikName, final String password) {
