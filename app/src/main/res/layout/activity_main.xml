@@ -30,6 +30,7 @@
             android:typeface="serif" />
     </android.support.v7.widget.Toolbar>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
