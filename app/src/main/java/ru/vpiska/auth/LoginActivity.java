@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import ru.vpiska.BuildConfig;
 import ru.vpiska.MainScreenActivity;
 import ru.vpiska.R;
 import ru.vpiska.app.AppConfig;
@@ -39,6 +40,7 @@ import ru.vpiska.app.HttpsTrustManager;
 import ru.vpiska.helper.CheckConnection;
 import ru.vpiska.helper.SQLiteHandler;
 import ru.vpiska.helper.SessionManager;
+import ru.vpiska.profile.GuestProfileActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -85,6 +87,12 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         // Check if user is already logged in or not
+
+            if(session.isGuest()){
+                Intent intent = new Intent(LoginActivity.this, GuestProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
@@ -197,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
         pDialog.setMessage("Готовим гостевой аккаунт  ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST, AppConfig.URL_LOGIN_GUEST, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Method.POST, AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -212,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (!error) {
                         // user successfully logged in
                         // Create login session
-                        session.setLogin(true);
+                        session.setKeyIsGuest(true);
                         JSONObject dataTokens = jObj.getJSONObject("data_tokens");
                         // Now store the user in SQLite
                         String accessToken = dataTokens.getString("access_token");
@@ -223,11 +231,14 @@ public class LoginActivity extends AppCompatActivity {
                         // Inserting row in users table
 
                         db.addDataTokens(accessToken,expAccessToken,refreshToken,expRefreshToken);
+                        db = new SQLiteHandler(getApplicationContext());
+                        HashMap<String, String> dataTokenss = db.getDataTokens();
 
+                        final String refreshTokens = dataTokenss.get("refresh_token");
 
 
                         // Launch main activity
-                        Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, GuestProfileActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -259,6 +270,7 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("type", "guest");
                 params.put("imei", deviceUniqueIdentifier);
 
 
@@ -341,6 +353,7 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("type", "auth");
                 params.put("nik_name", nikName);
                 params.put("password", password);
 

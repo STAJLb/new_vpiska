@@ -10,7 +10,7 @@ public class AppConfig {
 
     public final static String URL_LOGIN = URL_SERVER + "users/login";
 
-    public final static String URL_LOGIN_GUEST = URL_SERVER + "users/guest/login";
+    public final static String URL_LOGIN_GUEST = URL_SERVER + "guests/login";
 
     public final static String URL_REGISTER = URL_SERVER + "users/register";
 

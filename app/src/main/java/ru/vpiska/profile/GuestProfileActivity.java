@@ -42,6 +42,9 @@ import ru.vpiska.auth.LoginActivity;
 import ru.vpiska.helper.DatePicker;
 import ru.vpiska.helper.SQLiteHandler;
 import ru.vpiska.helper.SessionManager;
+import ru.vpiska.map.MapsActivity;
+import ru.vpiska.rating.RatingActivity;
+import ru.vpiska.shop.ShopActivity;
 
 
 /**
@@ -72,8 +75,46 @@ public class GuestProfileActivity extends AppCompatActivity {
 
 
         session = new SessionManager(getApplicationContext());
+        db = new SQLiteHandler(getApplicationContext());
 
+        HashMap<String, String> dataTokens = db.getDataTokens();
 
+        final String refreshToken = dataTokens.get("refresh_token");
+        ImageView imgAvatar = findViewById(R.id.imgAvatar);
+        Button btnMap = findViewById(R.id.btnMap);
+        Button btnRating = findViewById(R.id.btnRating);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        Glide.with(getApplicationContext())
+                .load("http://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png")
+                .placeholder(R.drawable.ic_profile)
+                .fitCenter()
+                .override(400, 400)
+                .dontAnimate()
+                .into(imgAvatar);
+
+        btnRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(GuestProfileActivity.this, RatingActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(GuestProfileActivity.this, MapsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         AdMobController.showBanner(this);
@@ -82,7 +123,7 @@ public class GuestProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_guest, menu);
         return true;
     }
 
@@ -90,17 +131,15 @@ public class GuestProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_about) {
-            AppController.getInstance().showDialogAboutUs(this);
-        }
         if (id == R.id.action_exit) {
             logoutUser();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     private void logoutUser() {
-        session.setLogin(false);
+        session.setKeyIsGuest(false);
 
         db.deleteDataTokensTable();
 

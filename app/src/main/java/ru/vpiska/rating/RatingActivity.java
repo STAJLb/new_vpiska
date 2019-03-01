@@ -8,12 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
@@ -38,6 +35,7 @@ import ru.vpiska.app.HttpsTrustManager;
 import ru.vpiska.auth.LoginActivity;
 import ru.vpiska.helper.SQLiteHandler;
 import ru.vpiska.helper.SessionManager;
+import ru.vpiska.profile.GuestProfileActivity;
 
 
 public class RatingActivity extends AppCompatActivity {
@@ -62,11 +60,13 @@ public class RatingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        db = new SQLiteHandler(getApplicationContext());
+        HashMap<String, String> dataTokens = db.getDataTokens();
 
         session = new SessionManager(getApplicationContext());
 
         pDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
-        pDialog.setCancelable(false);
+        pDialog.setCancelable(true);
         getDataOfRating();
 
 
@@ -98,9 +98,16 @@ public class RatingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(RatingActivity.this, MainScreenActivity.class);
-        startActivity(intent);
-        finish();
+        if(session.isGuest()){
+            Intent intent = new Intent(RatingActivity.this, GuestProfileActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent(RatingActivity.this, MainScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     private void logoutUser() {
@@ -119,7 +126,7 @@ public class RatingActivity extends AppCompatActivity {
         showDialog();
         HttpsTrustManager.allowAllSSL();
         final String tag_string_req = "req_get_data_of_rating";
-        db = new SQLiteHandler(getApplicationContext());
+
 
         HashMap<String, String> token = db.getDataTokens();
         accessToken = token.get("access_token");
@@ -152,8 +159,9 @@ public class RatingActivity extends AppCompatActivity {
 
 
                     } else {
+                        hideDialog();
                         if(expAccessToken){
-                            updateDataTokens(tag_string_req);
+                            updateDataTokens();
                         }else{
                             String errorMsg = jObj.getString("error_msg");
                             Toast.makeText(getApplicationContext(), "Ошибка: " +
@@ -164,6 +172,7 @@ public class RatingActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
+                    hideDialog();
                     Toast.makeText(getApplicationContext(), "Ошибка: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
@@ -182,8 +191,8 @@ public class RatingActivity extends AppCompatActivity {
             }
         }){
             @Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
-            Map<String, String> params = new HashMap<String, String>();
+        public Map<String, String> getHeaders() {
+            Map<String, String> params = new HashMap<>();
             params.put("Content-Type", "application/json; charset=UTF-8");
             params.put("Access-Token", accessToken);
             params.put("Version", Integer.toString(BuildConfig.VERSION_CODE));
@@ -196,7 +205,7 @@ public class RatingActivity extends AppCompatActivity {
     }
 
 
-    private void updateDataTokens(final String tag){
+    private void updateDataTokens(){
         HttpsTrustManager.allowAllSSL();
         Log.e(TAG, "Обновляем токен");
         String tag_string_req = "req_update_data_tokens";
@@ -230,7 +239,7 @@ public class RatingActivity extends AppCompatActivity {
 
                         Log.e(TAG, "Получили новый токен:" + accessToken);
 
-                        switch (tag){
+                        switch ("req_get_data_of_rating"){
                             case "req_get_data_of_rating":
                                 getDataOfRating();
                             break;
@@ -267,7 +276,8 @@ public class RatingActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
+                assert refreshToken != null;
                 params.put("refresh_token", refreshToken);
 
                 return params;

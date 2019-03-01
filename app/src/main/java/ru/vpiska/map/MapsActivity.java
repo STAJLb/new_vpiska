@@ -65,6 +65,7 @@ import ru.vpiska.helper.SQLiteHandler;
 import ru.vpiska.helper.SessionManager;
 import ru.vpiska.party.AddPartyActivity;
 import ru.vpiska.party.PartyActivity;
+import ru.vpiska.profile.GuestProfileActivity;
 import ru.vpiska.shop.ShopActivity;
 
 
@@ -115,6 +116,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         Button btnAddVpiska = findViewById(R.id.btnAddVpiska);
+
+        if(session.isGuest()){
+            btnAddVpiska.setVisibility(View.GONE);
+        }
 
         btnAddVpiska.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,8 +307,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_maps, menu);
+        if(session.isGuest()){
+            getMenuInflater().inflate(R.menu.menu_guest, menu);
+        }else {
+            getMenuInflater().inflate(R.menu.menu_maps, menu);
+
+        }
         return true;
+
     }
 
     @Override
@@ -386,9 +397,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(MapsActivity.this, MainScreenActivity.class);
-        startActivity(intent);
-        finish();
+        if(session.isGuest()){
+            Intent intent = new Intent(MapsActivity.this, GuestProfileActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Intent intent = new Intent(MapsActivity.this, MainScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 

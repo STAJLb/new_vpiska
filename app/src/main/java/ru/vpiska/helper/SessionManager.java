@@ -27,6 +27,8 @@ public class SessionManager {
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
 
+    private static final String KEY_IS_GUEST = "isGuest";
+
     @SuppressLint("CommitPrefEdits")
     public SessionManager(Context context) {
         this._context = context;
@@ -44,7 +46,20 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
+    public void setKeyIsGuest(boolean isGuest) {
+
+        editor.putBoolean(KEY_IS_GUEST, isGuest);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User login session modified!");
+    }
+
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+    }
+    public boolean isGuest(){
+        return pref.getBoolean(KEY_IS_GUEST, false);
     }
 }
